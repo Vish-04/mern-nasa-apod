@@ -1,0 +1,88 @@
+.title{
+  text-align: center;
+  font-size: 72px;
+}
+
+.image{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.app{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav{
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  justify-content: end;
+  padding: 30px;
+}
+
+.login, .signup{
+  font-size: 30px;
+  padding: 10px;
+}
+
+.login{
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightblue;
+  border-radius: 10px;
+  transition: ease-in-out 0.3s;
+}
+
+.signup{
+  background-color: lightblue;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightblue;
+  transition: ease-in-out 0.3s;
+
+}
+
+.login:hover{
+  background-color: lightblue;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightblue;
+  cursor: pointer;
+}
+
+.signup:hover{
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightblue;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  margin-right: 25px;
+  margin-left: 25px;
+  background-color: lightskyblue;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transition: ease-in-out 0.2s;
+  padding-bottom: 50px;
+}
+
+.content:hover{
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.not-logged{
+  scale: 1.2;
+  text-align: center;
+}
