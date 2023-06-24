@@ -69,12 +69,9 @@ const LoginForm = ({popup}) => {
               <GoogleOAuthProvider clientId="595495904519-18ji82fe2ics7b0kh306iuj1h2p1lpr3.apps.googleusercontent.com">
                 <GoogleLogin
                     onSuccess={credentialResponse => {
-                      console.log("Credential Response:", credentialResponse);
-                      console.log("DECODED: ", jwt_decode(credentialResponse.credential))
                       handleGoogleLogin();
                     }}
                     onError={() => {
-                      console.log('Login Failed');
                       setError({value: true, message:"Server Error: Unable to sign in with google"});
                       setSuccess(false);
                     }}

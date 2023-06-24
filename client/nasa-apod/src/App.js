@@ -13,8 +13,6 @@ function App() {
   
   useEffect(()=>{
     var sessionObject = JSON.parse(sessionStorage.getItem("sessionObject"));
-
-    console.log(sessionObject);
     
     if (sessionObject != null){
       setLogged(true);
@@ -24,23 +22,18 @@ function App() {
       if( Date.parse(currentDate) < Date.parse(sessionObject.expiresAt)){
         sessionObject.expiresAt = new Date(currentDate.getTime() + 30 * 60 * 1000);
         sessionStorage.setItem('sessionObject', JSON.stringify(sessionObject));
-        console.log("Session extended")
       } else{
         sessionStorage.removeItem('sessionObject');
-        console.log('Session expired');
         setLogged(false);
         setPopup('login');
       }
     } else{
-      console.log("Not logged in")
       setLogged(false);
     }
 
     const fetchImage = async () => {
-      console.log("IM IN")
       try{
         const response = await axios.get('https://api.nasa.gov/planetary/apod?api_key=DTPovGU4DQqv3qsDW3sWRyPa30IHhGIS0zYux9lK', {})
-        console.log(response);
         setImgURL(response.data.url);
       }
       catch(error){
@@ -66,12 +59,15 @@ function App() {
   }
 
   const deleteAccount = async () =>{
-    console.log("DELETE");
-    try{
-      const response = await axios.get('http://localhost:5000/users/delete/' + sessionObject.userInfo.id); 
+    if (sessionObject.userInfo.username == "GoogleSignIn2023"){
       logout();
-    } catch(error){
-      console.warn(error);
+    } else{
+      try{
+        const response = await axios.get('http://localhost:5000/users/delete/' + sessionObject.userInfo.id); 
+        logout();
+      } catch(error){
+        console.warn(error);
+      }
     }
   }
 
