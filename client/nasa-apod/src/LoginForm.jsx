@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { authenticateLogin } from "./login";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 import "./LoginForm.css";
 
 
@@ -18,9 +21,22 @@ const LoginForm = ({popup}) => {
         sessionStorage.setItem("logIn", "true");
         setSuccess(true)
         setTimeout(()=>{popup('none')}, 1000)
-        window.location.href = "/"
+        // window.location.href = "/"
+        window.location.reload();
     }
-}
+  }
+
+  const handleGoogleLogin = async() =>{
+    const result = await authenticateLogin("GoogleSignIn2023", "GoogleSignIn2023")
+    setError(result)
+    if (!result.value){
+        sessionStorage.setItem("logIn", "true");
+        setSuccess(true)
+        setTimeout(()=>{popup('none')}, 1000)
+        // window.location.href = "/"
+        window.location.reload();
+    }
+  }
 
     return (
       <div style={styles.container}>
@@ -49,7 +65,21 @@ const LoginForm = ({popup}) => {
               {error.value ? <p style={{color:"red", fontSize: 16, textAlign: "center" }}>{error.message}</p> : null}
               {success ? <p style={{color:"green", fontSize: 16, textAlign: "center" }}>Login Sucessful!</p> : null}
 
-              
+
+              <GoogleOAuthProvider clientId="595495904519-18ji82fe2ics7b0kh306iuj1h2p1lpr3.apps.googleusercontent.com">
+                <GoogleLogin
+                    onSuccess={credentialResponse => {
+                      console.log("Credential Response:", credentialResponse);
+                      console.log("DECODED: ", jwt_decode(credentialResponse.credential))
+                      handleGoogleLogin();
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                      setError({value: true, message:"Server Error: Unable to sign in with google"});
+                      setSuccess(false);
+                    }}
+                  />
+              </GoogleOAuthProvider>
               <div 
                 className="login-btn"
                 onClick={handleLogIn}
