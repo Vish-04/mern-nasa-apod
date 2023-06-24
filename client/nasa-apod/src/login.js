@@ -16,7 +16,7 @@ export const authenticateLogin = async (username, password) => {
 
     // see if username exists
     try{
-        user = await axios.get('http://localhost:5000/users/'+username,{
+        user = await axios.get('https://mern-nasa-apod.onrender.com/users/'+username,{
             headers: {
               'Access-Control-Allow-Origin': 'http://127.0.0.1:5173'
             }
@@ -50,7 +50,7 @@ export const authenticateLogin = async (username, password) => {
 export const createUser = async(username, password, confirmPassword) =>{
     let user;
 
-    const post_url = 'http://localhost:5000/users/'+username
+    const post_url = 'https://mern-nasa-apod.onrender.com/users/'+username
     // validation checks
     if (!username.trim()) {
         return {value: true, message: "Username must be at least 3 characters long"};
@@ -97,7 +97,7 @@ export const createUser = async(username, password, confirmPassword) =>{
         
         // create user
         try{
-            axios.post('http://localhost:5000/users/add', user)
+            axios.post('https://mern-nasa-apod.onrender.com/users/add', user)
             .then(res=> console.log(res.data));
         } catch (error) {
             return {value: true, message:"Server Error: Unable to create account, please try again later"};
