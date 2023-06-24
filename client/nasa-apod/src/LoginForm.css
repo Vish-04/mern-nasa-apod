@@ -66,6 +66,7 @@
     transition: 0.4s;
     border-radius: 0.25em;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .login-btn:hover {
