@@ -11,6 +11,16 @@ function App() {
   const [logged, setLogged] = useState(false);
   var sessionObject = JSON.parse(sessionStorage.getItem("sessionObject"));
   
+  const fetchImage = async () => {
+    try{
+      const response = await axios.get('https://api.nasa.gov/planetary/apod?api_key=DTPovGU4DQqv3qsDW3sWRyPa30IHhGIS0zYux9lK', {})
+      setImgURL(response.data.url);
+    }
+    catch(error){
+      console.warn(error);  
+    }
+  }
+
   useEffect(()=>{
     var sessionObject = JSON.parse(sessionStorage.getItem("sessionObject"));
     
@@ -31,18 +41,9 @@ function App() {
       setLogged(false);
     }
 
-    const fetchImage = async () => {
-      try{
-        const response = await axios.get('https://api.nasa.gov/planetary/apod?api_key=DTPovGU4DQqv3qsDW3sWRyPa30IHhGIS0zYux9lK', {})
-        setImgURL(response.data.url);
-      }
-      catch(error){
-        console.warn(error);  
-      }
-    }
 
     fetchImage();
-  },[]);
+  });
 
 
   const loginPopup = () => {
